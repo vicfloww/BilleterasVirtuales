@@ -1,80 +1,121 @@
+// Objeto con las tasas de interés de las billeteras virtuales, usando objetos y arrays para las billeteras y tasas..
 
-// tasas de interés anuales para cada billetera virtual
+const billeteras = [
+    { nombre: 'Personal Pay', tasa: 73.9 },
+    { nombre: 'Prex', tasa: 73.1 },
+    { nombre: 'Mercado Pago', tasa: 70.7 },
+    { nombre: 'Ualá', tasa: 70.5 },
+    { nombre: 'NaranjaX', tasa: 82 }
+];
 
-const tasasAnuales = {
-    "Personal Pay": 73.9,
-    "Prex": 73.1,
-    "Mercado Pago": 70.7,
-    "Ualá": 70.5,
-    "NaranjaX": 82,
-};
+// funcion calcular el interes compuesto
 
-//calculos y ciclos
+function calcularInteresCompuesto(inversion) {
 
-// calcular el interés compuesto
-function calcularInteres() {
-    // toma el monto inicial ingresado por el usuario
-    const montoInput = document.getElementById("monto").value;
+    // calculo parala ganancia diaria para cada billetera virtual
+    const gananciaDiaria = billeteras.map(billetera => {
+        const tasaDiaria = billetera.tasa / 100 / 365;
+        const ganancia = inversion * tasaDiaria;
+        return { nombre: billetera.nombre, tasa: billetera.tasa, ganancia: ganancia.toFixed(2) };
+    });
 
-    // verificacion si el valor ingresado es un numero
-    if (isNaN(montoInput) || montoInput === '') {
-        // Mostrar una alerta si el valor no es un número válido
-        alert("Por favor, ingrese un monto válido.");
-        return; // Salir de la función si el valor no es válido
+
+    // calculo para la ganancia mensual basada en la ganancia diaria
+    const gananciaMensual = gananciaDiaria.map(billetera => ({
+        nombre: billetera.nombre,
+        ganancia: (parseFloat(billetera.ganancia) * 30).toFixed(2)
+    }));
+
+
+    // retornar  la ganancia diaria y la mensual
+    return { gananciaDiaria, gananciaMensual };
+}
+
+// función para mostrar los resultados en la plataforma
+function mostrarResultados(resultados) {
+    const resultadosElemento = document.getElementById('resultados');
+    
+    // limpiar contenido previo
+    resultadosElemento.innerHTML = '';
+
+    // para mostrar la info de cada billetera:
+
+    resultados.gananciaDiaria.forEach(billetera => {
+
+        const billeteraElemento = document.createElement('div');
+        billeteraElemento.classList.add('resultado');
+
+        const nombreElemento = document.createElement('h2');
+        nombreElemento.textContent = billetera.nombre;
+        billeteraElemento.appendChild(nombreElemento);
+
+        const tasaElemento = document.createElement('p');
+        tasaElemento.textContent = `Tasa: ${billetera.tasa}%`;
+        billeteraElemento.appendChild(tasaElemento);
+
+        const gananciaDiariaElemento = document.createElement('p');
+        gananciaDiariaElemento.textContent = `Ganancia Diaria: $${billetera.ganancia}`;
+        billeteraElemento.appendChild(gananciaDiariaElemento);
+
+        const gananciaMensualElemento = document.createElement('p');
+        gananciaMensualElemento.textContent = `Ganancia Mensual: $${resultados.gananciaMensual.find(b => b.nombre === billetera.nombre).ganancia}`;
+        billeteraElemento.appendChild(gananciaMensualElemento);
+
+        resultadosElemento.appendChild(billeteraElemento);
+    });
+}
+
+// funcion que va calcular y mostrar resultados
+
+function calcular() {
+
+    // toma el monto de inversion ingresado por el usuario
+
+    const inversion = parseFloat(document.getElementById('inversion').value);
+    if (isNaN(inversion)) {
+        alert('Ingresá un monto válido.');
+        return;
     }
 
+    // calculo de la ganancia diaria y mensual
 
-    // pasar el valor ingresado a decimal
-    const montoInicial = parseFloat(montoInput);
+    const resultados = calcularInteresCompuesto(inversion);
 
-    // toma referencia al elemento donde se mostrarán los resultados
-    const resultadosDiv = document.getElementById("resultados");
-    // borra los resultados previos
-    resultadosDiv.innerHTML = "";
+    // verr los resultados en la pagina
+    mostrarResultados(resultados);
+}
 
+// funcion para buscar la tasa de una billetera virtual seleccionada, aca se incluye metodo de busqueda sobre el array
 
+function buscarTasa() {
+    const billeteraSeleccionada = document.getElementById('billetera').value;
+    if (!billeteraSeleccionada) {
+        alert('Seleccioná una billetera!!');
+        return;
+    }
 
-
-    // itera sobre cada billetera en el objeto tasasAnuales
-    for (let billetera in tasasAnuales) {
-        // inicializa el monto actual con el monto inicial ingresado
-        let monto = montoInicial;
-        // calcular la tasa diaria para la billetera actual
-        const tasaDiaria = tasasAnuales[billetera] / 100 / 365;
-        // inicializar las ganancias diaria y mensual en 0
-        let gananciaDiaria = 0;
-        let gananciaMensual = 0;
-
-        // calcula las ganancias diaria y mensual para 30 dias
-        for (let i = 0; i < 30; i++) {
-            // calcula la ganancia diaria
-            gananciaDiaria = monto * tasaDiaria;
-            // suma la ganancia diaria al monto actual
-            monto += gananciaDiaria;
-            // suma la ganancia diaria a la ganancia mensual
-            gananciaMensual += gananciaDiaria;
-        }
-
-
-// pasar resultados al html
-
-        // genera el HTML para mostrar los resultados de las billeteras
-        const resultadoHTML = `<div class="resultado" style="border-color: ${getRandomColor()}">
-                                    <h2 style="color: ${getRandomColor()}">${billetera}</h2>
-                                    <p>Ganancia diaria: $${gananciaDiaria.toFixed(2)}</p>
-                                    <p>Ganancia mensual: $${gananciaMensual.toFixed(2)}</p>
-                                </div>`;
-        // pasar el HTML al contenedor de resultados
-        resultadosDiv.innerHTML += resultadoHTML;
+    const billetera = billeteras.find(billetera => billetera.nombre === billeteraSeleccionada);
+    if (billetera) {
+        alert(`La tasa de interés de ${billeteraSeleccionada} es: ${billetera.tasa}%`);
+    } else {
+        alert(`No se encontró la billetera ${billeteraSeleccionada}!`);
     }
 }
 
+// funcion para filtrar las billeteras virtuales por una tasa minima especificada, se incluye el metodo de filtrado sobre el array
 
-// funcionalidad para generar un color diferente para cada borde en los resultados d elas billeteras
+function filtrarPorTasa() {
+    const tasaMinima = parseFloat(document.getElementById('tasa-minima').value);
+    if (isNaN(tasaMinima)) {
+        alert('Ingresá una tasa mínima válida!!');
+        return;
+    }
 
-
-// genera un color aleatorio en formato hexadecimal
-function getRandomColor() {
-    // color hexadecimal aleatorio
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    const billeterasFiltradas = billeteras.filter(billetera => billetera.tasa >= tasaMinima);
+    if (billeterasFiltradas.length > 0) {
+        const nombresBilleterasFiltradas = billeterasFiltradas.map(billetera => billetera.nombre).join(', ');
+        alert(`Billeteras con tasa mayor o igual a ${tasaMinima}%:\n${nombresBilleterasFiltradas}`);
+    } else {
+        alert(`No hay billeteras con una tasa mayor o igual a ${tasaMinima}% !!`);
+    }
 }

@@ -7,47 +7,79 @@ body {
     color: #006eff;
 }
 
-.calculator-container {
+.container {
     max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: 30px auto 20px auto;
+    padding: 30px;
     background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid #ae00ff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.267);
 }
 
-.calculator-container h1 {
+.container h1 {
     text-align: center;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.input-container {
+.form {
     margin-bottom: 20px;
 }
 
-.input-container label {
+.form label {
     display: block;
     margin-bottom: 5px;
     font-size: 18px;
     font-weight: bolder;
     color: #7700ff;
     text-align: center;
-
 }
 
-.input-container input {
-    width: 97%;
+.filter-form label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+    color: #7700ff;
+    text-align: center;
+}
+
+.filter-form label {
+    margin-top: 10px !important;
+}
+
+.form input[type="number"] {
+    width: 96%;
     padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     border: 2px solid #006eff;
     border-radius: 5px;
-    border: none;
+}
+
+.filter-form input[type="number"] {
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 2px solid #006eff;
+    border-radius: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 2px solid #006eff;
+    border-radius: 5px;
 }
 
 button {
     display: block;
-    width: 100%;
+    width: 40%;
     padding: 10px;
     background-color: #8400d1;
     color: #eed2ff;
@@ -58,19 +90,28 @@ button {
     font-weight: bolder;
     font-size: 16px;
     margin-bottom: 10px;
+    margin: 0 auto;
 }
 
 button:hover {
     background-color: #a14eff;
 }
 
-.resultados-container {
+.result-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; 
+    align-items: center;
+    width: 100%; 
+}
+
+.result-container h2 {
+    width: 100%;
+    text-align: center;
 }
 
 .resultado {
-    flex: 1 1 45%;
+    flex: 1; 
+    width: 80vh;
     margin: 10px;
     padding: 10px;
     background: linear-gradient(to bottom right, #202020, #111111);
@@ -82,6 +123,8 @@ button:hover {
 .resultado h2 {
     margin-bottom: 10px;
     margin-top: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 .resultado p {
@@ -89,4 +132,5 @@ button:hover {
     margin-bottom: 10px;
     color: #f3d8ff;
     font-weight: bold;
+    width: 100%;
 }
