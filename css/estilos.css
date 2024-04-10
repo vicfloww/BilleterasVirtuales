@@ -1,15 +1,14 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
     font-family: Arial, sans-serif;
     background: radial-gradient(circle, #221c36, #0c0811);
     color: #006eff;
 }
 
 .container {
-    max-width: 600px;
-    margin: 30px auto 20px auto;
+    max-width: 80%;
+    margin: 30px auto;
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid #ae00ff;
@@ -23,19 +22,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.form {
-    margin-bottom: 20px;
-}
-
-.form label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 18px;
-    font-weight: bolder;
-    color: #7700ff;
-    text-align: center;
-}
-
+.form label,
 .filter-form label {
     display: block;
     margin-bottom: 5px;
@@ -46,35 +33,18 @@ body {
     text-align: center;
 }
 
-.filter-form label {
-    margin-top: 10px !important;
-}
-
-.form input[type="number"] {
-    width: 96%;
+.form input[type="number"],
+.filter-form input[type="number"],
+select {
+    width: 95%;
     padding: 10px;
     margin-bottom: 10px;
-    margin-top: 10px;
-    border: 2px solid #006eff;
-    border-radius: 5px;
-}
-
-.filter-form input[type="number"] {
-    width: 96%;
-    padding: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
     border: 2px solid #006eff;
     border-radius: 5px;
 }
 
 select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border: 2px solid #006eff;
-    border-radius: 5px;
 }
 
 button {
@@ -99,20 +69,17 @@ button:hover {
 
 .result-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    width: 100%; 
 }
 
 .result-container h2 {
-    width: 100%;
     text-align: center;
 }
 
 .resultado {
-    flex: 1; 
-    width: 80vh;
-    margin: 10px;
+    width: 90%;
+    margin: 10px auto;
     padding: 10px;
     background: linear-gradient(to bottom right, #202020, #111111);
     border: 2px solid #ff4eab;
@@ -123,7 +90,6 @@ button:hover {
 .resultado h2 {
     margin-bottom: 10px;
     margin-top: 10px;
-    width: 100%;
     text-align: center;
 }
 
@@ -132,5 +98,5 @@ button:hover {
     margin-bottom: 10px;
     color: #f3d8ff;
     font-weight: bold;
-    width: 100%;
+    text-align: center;
 }
