@@ -1,3 +1,11 @@
+//botones
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("calcular").addEventListener("click", calcular);
+    document.getElementById("buscarTasa").addEventListener("click", buscarTasa);
+    document.getElementById("filtrarPorTasa").addEventListener("click", filtrarPorTasa);
+});
+
 // Objeto con las tasas de interés de las billeteras virtuales, usando objetos y arrays para las billeteras y tasas..
 
 const billeteras = [
